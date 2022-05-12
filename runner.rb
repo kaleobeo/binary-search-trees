@@ -7,3 +7,6 @@ puts 'dependencies loaded!'
 
 tree = Tree.new([1, 7, 4, 3, 10, 15, 2, 17])
 tree.pretty_print
+
+tree.insert(tree.root, 5)
+tree.pretty_print
