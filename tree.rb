@@ -30,6 +30,36 @@ class Tree
     root
   end
 
+  def delete(root, data)
+    return unless root.is_a?(Node)
+
+    # Look in left subtree if the node to be deleted is smaller than root
+    if data < root.data
+      root.left = delete(root.left, data) 
+    # Look in right subtree if the node to be deleted is greater than root
+    elsif data > root.data
+      root.right = delete(root.right, data)
+    else
+      if root.left.nil?
+        return root.right
+      elsif root.right.nil?
+        return root.left
+      end
+
+      temp = min_value(root.right)
+      root.data = temp.data
+      root.right = delete(root.right, temp.data)
+    end
+    root
+  end
+
+  def min_value(root)
+    return unless root.is_a?(Node)
+    return root unless root.left
+
+    min_value(root.left)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
