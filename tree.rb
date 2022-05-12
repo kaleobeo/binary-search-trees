@@ -60,6 +60,11 @@ class Tree
     min_value(root.left)
   end
 
+  def find(root, data)
+    return root if root.data == data || !root.is_a?(Node)
+    data < root.data ? find(root.left, data) : find(root.right, data)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
