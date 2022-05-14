@@ -9,14 +9,6 @@ array = [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 17, 24]
 tree = Tree.new(array)
 tree.pretty_print
 
-test_proc = proc { |node| p node.data }
-
-#tree.level_order(tree.root, &test_proc)
-
-p tree.level_order_rec([tree.root])
-
-#p tree.find(tree.root, 7)
-
 #tree.insert(tree.root, 5)
 #tree.insert(tree.root, 9)
 #tree.insert(tree.root, 42)
@@ -24,3 +16,13 @@ p tree.level_order_rec([tree.root])
 #p tree.min_value(tree.root.right)
 #tree.delete(tree.root, array[2])
 #tree.pretty_print
+
+#p tree.find(tree.root, 7)
+
+test_proc = proc { |node| p node.data }
+
+#tree.level_order(tree.root, &test_proc)
+
+#tree.level_order_rec([tree.root])
+
+p tree.inorder(tree.root)
