@@ -13,4 +13,8 @@ class Node
   def <=>(other)
     data <=> other.data
   end
+
+  def children
+    [left, right].compact
+  end
 end

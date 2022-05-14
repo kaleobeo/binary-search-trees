@@ -19,7 +19,7 @@ tree.pretty_print
 
 #p tree.find(tree.root, 7)
 
-test_proc = proc { |node| p node.data }
+#test_proc = proc { |node| p node.data }
 
 #tree.level_order(tree.root, &test_proc)
 
@@ -33,6 +33,8 @@ test_proc = proc { |node| p node.data }
 
 #p tree.preorder(tree.root)
 
-tree.postorder(tree.root, &test_proc)
+#tree.postorder(tree.root, &test_proc)
 
-p tree.postorder(tree.root)
+#p tree.postorder(tree.root)
+
+p ( tree.root.children.map(&:data))
