@@ -23,7 +23,7 @@ tree.pretty_print
 
 #tree.level_order(tree.root, &test_proc)
 
-#p tree.level_order_rec([tree.root])
+#p tree.level_order_rec(tree.root)
 
 #p tree.inorder(tree.root)
 
@@ -56,4 +56,11 @@ tree.insert(tree.root, 14)
 
 tree.pretty_print
 
+p tree.balanced?
+
+sleep 3.0
+
+tree.rebalance
+
+tree.pretty_print
 p tree.balanced?

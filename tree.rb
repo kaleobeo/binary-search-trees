@@ -80,7 +80,8 @@ class Tree
     default_output unless default_output.length.zero?
   end
 
-  def level_order_rec(queue = [], arr = [], &block)
+  def level_order_rec(root = nil, queue: [], arr: [], &block)
+    queue.push(root).compact!
     return if queue.empty?
 
     next_elem = queue[0]
@@ -89,7 +90,7 @@ class Tree
     queue.shift
     return arr if queue.empty? && !block_given?
 
-    level_order_rec(queue, arr, &block)
+    level_order_rec(queue: queue, arr: arr, &block)
   end
 
   def inorder(root, arr = [], &block)
@@ -138,6 +139,10 @@ class Tree
     return true if root.children.empty?
     children_heights = root.children.map {|child| height(child)}
     [0, 1].include?(children_heights.max - children_heights.min) && root.children.all? {|child| balanced?(child)}
+  end
+
+  def rebalance
+    self.root = build_tree(level_order_rec(self.root))
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
