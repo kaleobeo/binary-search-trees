@@ -18,3 +18,4 @@ class Node
     [left, right].compact
   end
 end
+

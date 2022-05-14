@@ -43,5 +43,17 @@ tree.pretty_print
 
 #p tree.height(tree.root)
 
-p tree.depth(tree.root.left.right)
-p tree.depth(tree.root.right.right.left)
+#p tree.depth(tree.root.left.right)
+#p tree.depth(tree.root.right.right.left)
+
+p tree.balanced?
+
+sleep 3.0
+
+tree.insert(tree.root, 16)
+tree.insert(tree.root, 15)
+tree.insert(tree.root, 14)
+
+tree.pretty_print
+
+p tree.balanced?

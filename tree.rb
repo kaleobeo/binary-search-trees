@@ -120,7 +120,7 @@ class Tree
   end
 
   def height(node)
-    return 0 if node.children.length.zero?
+    return 0 if node.children.length.zero? || node.nil?
 
     1 + node.children.map { |child| height(child) }.max
   end
@@ -133,9 +133,17 @@ class Tree
     1 + root.children.map { |child| depth(node, child)}.min
   end
 
+  def balanced?(root=nil)
+    root ||= self.root
+    return true if root.children.empty?
+    children_heights = root.children.map {|child| height(child)}
+    [0, 1].include?(children_heights.max - children_heights.min) && root.children.all? {|child| balanced?(child)}
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
+
