@@ -62,18 +62,50 @@ class Tree
 
   def find(root, data)
     return root if root.data == data || !root.is_a?(Node)
+
     data < root.data ? find(root.left, data) : find(root.right, data)
   end
 
   def level_order(root, &block)
     queue = []
+    default_output = []
     queue.push(root)
 
     until queue.empty?
       queue.push(queue[0].left) if queue[0].left
       queue.push(queue[0].right) if queue[0].right
-      block.call(queue.shift)
+      block_given? ? block.call(queue.shift) : default_output.push(queue.shift.data)
     end
+    default_output unless default_output.length.zero?
+  end
+
+  def level_order_rec(queue = [], arr = [], &block)
+    return if queue.empty?
+
+    next_elem = queue[0]
+    block_given? ? block.call(next_elem) : arr.push(next_elem.data)
+    queue.push(next_elem.left) if next_elem.left
+    queue.push(next_elem.right) if next_elem.right
+    queue.shift
+    return arr if queue.empty? && !block_given?
+
+    level_order_rec(queue, no_block_arr, &block)
+  end
+
+  def inorder(root, arr = [], &block)
+    return if root.nil?
+
+    inorder(root.left, &block)
+    block.call(root)
+    inorder(root.right, &block)
+  end
+
+  def preorder(root, &block)
+
+  end
+
+  def postorder(root, &block)
+
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)

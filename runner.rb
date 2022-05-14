@@ -9,9 +9,11 @@ array = [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 17, 24]
 tree = Tree.new(array)
 tree.pretty_print
 
-tree.level_order(tree.root) do |node|
-  p node.data
-end
+test_proc = proc { |node| p node.data }
+
+#tree.level_order(tree.root, &test_proc)
+
+p tree.level_order_rec([tree.root])
 
 #p tree.find(tree.root, 7)
 
