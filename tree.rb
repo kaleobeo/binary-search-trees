@@ -39,6 +39,7 @@ class Tree
     # Look in right subtree if the node to be deleted is greater than root
     elsif data > root.data
       root.right = delete(root.right, data)
+    # Else this is the node to be deleted
     else
       if root.left.nil?
         return root.right
@@ -46,6 +47,7 @@ class Tree
         return root.left
       end
 
+      # When there is two children
       temp = min_value(root.right)
       root.data = temp.data
       root.right = delete(root.right, temp.data)
@@ -72,8 +74,7 @@ class Tree
     queue.push(root)
 
     until queue.empty?
-      queue.push(queue[0].left) if queue[0].left
-      queue.push(queue[0].right) if queue[0].right
+      queue += queue[0].children
       block_given? ? block.call(queue.shift) : default_output.push(queue.shift.data)
     end
     default_output unless default_output.length.zero?
@@ -84,12 +85,11 @@ class Tree
 
     next_elem = queue[0]
     block_given? ? block.call(next_elem) : arr.push(next_elem.data)
-    queue.push(next_elem.left) if next_elem.left
-    queue.push(next_elem.right) if next_elem.right
+    queue += next_elem.children
     queue.shift
     return arr if queue.empty? && !block_given?
 
-    level_order_rec(queue, no_block_arr, &block)
+    level_order_rec(queue, arr, &block)
   end
 
   def inorder(root, arr = [], &block)
@@ -117,6 +117,10 @@ class Tree
     preorder(root.right, arr, &block)
     block_given? ? block.call(root) : arr.push(root.data)
     arr unless block_given?
+  end
+
+  def height(node)
+    return 0 
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
