@@ -25,4 +25,14 @@ test_proc = proc { |node| p node.data }
 
 #tree.level_order_rec([tree.root])
 
-p tree.inorder(tree.root)
+#p tree.inorder(tree.root)
+
+#tree.inorder(tree.root, &test_proc)
+
+#tree.preorder(tree.root, &test_proc)
+
+#p tree.preorder(tree.root)
+
+tree.postorder(tree.root, &test_proc)
+
+p tree.postorder(tree.root)
