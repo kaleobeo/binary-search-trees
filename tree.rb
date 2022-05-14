@@ -101,12 +101,22 @@ class Tree
     arr unless block_given?
   end
 
-  def preorder(root, &block)
+  def preorder(root, arr = [], &block)
+    return if root.nil?
 
+    block_given? ? block.call(root) : arr.push(root.data)
+    preorder(root.left, arr, &block)
+    preorder(root.right, arr, &block)
+    arr unless block_given?
   end
 
-  def postorder(root, &block)
+  def postorder(root, arr = [], &block)
+    return if root.nil?
 
+    preorder(root.left, arr, &block)
+    preorder(root.right, arr, &block)
+    block_given? ? block.call(root) : arr.push(root.data)
+    arr unless block_given?
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
