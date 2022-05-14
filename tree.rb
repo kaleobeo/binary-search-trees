@@ -95,9 +95,10 @@ class Tree
   def inorder(root, arr = [], &block)
     return if root.nil?
 
-    inorder(root.left, &block)
-    block.call(root)
-    inorder(root.right, &block)
+    inorder(root.left, arr, &block)
+    block_given? ? block.call(root) : arr.push(root.data)
+    inorder(root.right, arr, &block)
+    arr unless block_given?
   end
 
   def preorder(root, &block)
