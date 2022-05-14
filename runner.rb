@@ -23,7 +23,7 @@ tree.pretty_print
 
 #tree.level_order(tree.root, &test_proc)
 
-#tree.level_order_rec([tree.root])
+#p tree.level_order_rec([tree.root])
 
 #p tree.inorder(tree.root)
 
@@ -37,4 +37,11 @@ tree.pretty_print
 
 #p tree.postorder(tree.root)
 
-p ( tree.root.children.map(&:data))
+#p ( tree.root.children.map(&:data))
+
+#p tree.height(tree.root.left)
+
+#p tree.height(tree.root)
+
+p tree.depth(tree.root.left.right)
+p tree.depth(tree.root.right.right.left)

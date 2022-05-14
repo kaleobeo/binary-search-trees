@@ -35,7 +35,7 @@ class Tree
 
     # Look in left subtree if the node to be deleted is smaller than root
     if data < root.data
-      root.left = delete(root.left, data) 
+      root.left = delete(root.left, data)
     # Look in right subtree if the node to be deleted is greater than root
     elsif data > root.data
       root.right = delete(root.right, data)
@@ -120,7 +120,17 @@ class Tree
   end
 
   def height(node)
-    return 0 
+    return 0 if node.children.length.zero?
+
+    1 + node.children.map { |child| height(child) }.max
+  end
+
+  def depth(node, root = nil)
+    root ||= self.root
+    return 0 if root == node
+    return Float::INFINITY if root.children.empty?
+
+    1 + root.children.map { |child| depth(node, child)}.min
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
