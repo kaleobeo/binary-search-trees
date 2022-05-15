@@ -3,7 +3,6 @@
 require_relative 'node'
 require_relative 'tree'
 
-
 tree = Tree.new(Array.new(15) { rand(1..100) })
 tree.pretty_print
 puts "Is tree balanced? #{tree.balanced?}"

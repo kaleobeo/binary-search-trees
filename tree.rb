@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Manages functions to create, add, delete, etc. from a BST
 class Tree
   attr_accessor :root
 
@@ -41,11 +42,8 @@ class Tree
       root.right = delete(root.right, data)
     # Else this is the node to be deleted
     else
-      if root.left.nil?
-        return root.right
-      elsif root.right.nil?
-        return root.left
-      end
+      return root.right if root.left.nil?
+      return root.left if root.right.nil?
 
       # When there is two children
       temp = min_value(root.right)
@@ -131,18 +129,19 @@ class Tree
     return 0 if root == node
     return Float::INFINITY if root.children.empty?
 
-    1 + root.children.map { |child| depth(node, child)}.min
+    1 + root.children.map { |child| depth(node, child) }.min
   end
 
-  def balanced?(root=nil)
+  def balanced?(root = nil)
     root ||= self.root
     return true if root.children.empty?
-    children_heights = root.children.map {|child| height(child)}
-    [0, 1].include?(children_heights.max - children_heights.min) && root.children.all? {|child| balanced?(child)}
+
+    children_heights = root.children.map { |child| height(child) }
+    [0, 1].include?(children_heights.max - children_heights.min) && root.children.all? { |child| balanced?(child) }
   end
 
   def rebalance
-    self.root = build_tree(level_order_rec(self.root))
+    self.root = build_tree(level_order_rec(root))
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -151,4 +150,3 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
-
