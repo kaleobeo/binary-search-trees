@@ -3,64 +3,53 @@
 require_relative 'node'
 require_relative 'tree'
 
-puts 'dependencies loaded!'
-array = [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 17, 24]
-# 15.times { array.push(rand(25) + 1) }
-tree = Tree.new(array)
+
+tree = Tree.new(Array.new(15) { rand(1..100) })
 tree.pretty_print
+puts "Is tree balanced? #{tree.balanced?}"
 
-#tree.insert(tree.root, 5)
-#tree.insert(tree.root, 9)
-#tree.insert(tree.root, 42)
+sleep 2.0
+puts 'Level order traversal:'
+p tree.level_order(tree.root)
 
-#p tree.min_value(tree.root.right)
-#tree.delete(tree.root, array[2])
-#tree.pretty_print
+sleep 2.0
+puts 'Inorder traversal:'
+p tree.inorder(tree.root)
 
-#p tree.find(tree.root, 7)
+sleep 2.0
+puts 'Preorder traversal:'
+p tree.preorder(tree.root)
 
-#test_proc = proc { |node| p node.data }
+sleep 2.0
+puts 'Postorder traversal:'
+p tree.postorder(tree.root)
 
-#tree.level_order(tree.root, &test_proc)
-
-#p tree.level_order_rec(tree.root)
-
-#p tree.inorder(tree.root)
-
-#tree.inorder(tree.root, &test_proc)
-
-#tree.preorder(tree.root, &test_proc)
-
-#p tree.preorder(tree.root)
-
-#tree.postorder(tree.root, &test_proc)
-
-#p tree.postorder(tree.root)
-
-#p ( tree.root.children.map(&:data))
-
-#p tree.height(tree.root.left)
-
-#p tree.height(tree.root)
-
-#p tree.depth(tree.root.left.right)
-#p tree.depth(tree.root.right.right.left)
-
-p tree.balanced?
+sleep 2.0
+puts 'Unbalancing tree:'
+sleep 1.5
+5.times { tree.insert(tree.root, rand(100..150)) }
+tree.pretty_print
+puts "Is tree balanced? #{tree.balanced?}"
 
 sleep 3.0
-
-tree.insert(tree.root, 16)
-tree.insert(tree.root, 15)
-tree.insert(tree.root, 14)
-
-tree.pretty_print
-
-p tree.balanced?
-
-sleep 3.0
-
+puts 'Rebalancing tree...'
+sleep 1.5
 tree.rebalance
-
 tree.pretty_print
-p tree.balanced?
+puts "Is tree balanced? #{tree.balanced?}"
+
+sleep 2.0
+puts 'Level order traversal:'
+p tree.level_order(tree.root)
+
+sleep 2.0
+puts 'Inorder traversal:'
+p tree.inorder(tree.root)
+
+sleep 2.0
+puts 'Preorder traversal:'
+p tree.preorder(tree.root)
+
+sleep 2.0
+puts 'Postorder traversal:'
+p tree.postorder(tree.root)
