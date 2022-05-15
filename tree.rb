@@ -9,13 +9,15 @@ class Tree
   end
 
   def build_tree(array)
-    return nil if !array.is_a?(Array) || array.length.zero?
+    return nil if !array.is_a?(Array) || array.empty?
 
     array = array.sort.uniq
     midpoint = array.length / 2
     root = Node.new(data: array[midpoint])
+
     root.left = build_tree(array[0...midpoint])
     root.right = build_tree(array[midpoint + 1..-1])
+
     root
   end
 
@@ -66,6 +68,8 @@ class Tree
     data < root.data ? find(root.left, data) : find(root.right, data)
   end
 
+  # Traverses the tree in breadth-first fashion
+
   def level_order(root, &block)
     queue = []
     default_output = []
@@ -90,6 +94,9 @@ class Tree
 
     level_order_rec(queue: queue, arr: arr, &block)
   end
+
+  # yields the elements of the tree to a given block in a particular depth
+  # first order, returns an array of values if no block is given
 
   def inorder(root, arr = [], &block)
     return if root.nil?
@@ -118,12 +125,15 @@ class Tree
     arr unless block_given?
   end
 
+  # returns the height (edges between node and lowest leaf) of a given node in the tree
+
   def height(node)
     return 0 if node.children.length.zero? || node.nil?
 
     1 + node.children.map { |child| height(child) }.max
   end
 
+  # returns the depth (distance from root to given node) of a given node in the tree
   def depth(node, root = nil)
     root ||= self.root
     return 0 if root == node
@@ -131,6 +141,8 @@ class Tree
 
     1 + root.children.map { |child| depth(node, child) }.min
   end
+
+  # verifies that a tree is balanced (difference between children's heights is no more than 1)
 
   def balanced?(root = nil)
     root ||= self.root
@@ -140,10 +152,12 @@ class Tree
     [0, 1].include?(children_heights.max - children_heights.min) && root.children.all? { |child| balanced?(child) }
   end
 
+  # traverses the tree, logging the data and using it to rebuild a balanced tree
   def rebalance
     self.root = build_tree(level_order_rec(root))
   end
 
+  # Not written by me, but a very clever way to print a BST
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
