@@ -44,15 +44,18 @@ class Tree
       root.right = delete(root.right, data)
     # Else this is the node to be deleted
     else
-      return root.right if root.left.nil?
-      return root.left if root.right.nil?
+      return root.children[0] if root.children.length <= 1
 
       # When there is two children
-      temp = min_value(root.right)
-      root.data = temp.data
-      root.right = delete(root.right, temp.data)
+      delete_two_children(root)
     end
     root
+  end
+
+  def delete_two_children(root)
+    temp = min_value(root.right)
+    root.data = temp.data
+    root.right = delete(root.right, temp.data)
   end
 
   def min_value(root)
